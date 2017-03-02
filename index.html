@@ -23,10 +23,10 @@ function onDeviceReady(){
 			var foto="img/fotos/foto1.jpg";
 			var lat=$("#latitud").val();
 			var longit=$("#longitud").val();
-			alert("Funciona guardar");								
+			//alert("Funciona guardar");								
 			$.ajax({
 				type:"POST",
-				url:"http://leydimovil.esy.es /Guardar.php",
+				url:"http://leydimovil.esy.es/Guardar.php",
 				data:"Nom="+nom+"&Dir="+dir+"&Rfc="+rfc+"&Tel="+tel+"&Clasif="+clasif+"&Foto="+foto+"&Lat="+lat+"&Long="+longit,
 				success:function (datos) {
 					alert("Datos guardados correctamente: "+datos);
@@ -38,7 +38,7 @@ function onDeviceReady(){
 		$("#btnConsServ").tap(function (){
 			$.ajax({
 				type:"POST",
-				url:"http://leydimovil.esy.es /Consulta.php",
+				url:"http://leydimovil.esy.es/Consulta.php",
 				data:"",
 				success:function (datos) {
 					var reg=$.parseJSON(datos);
@@ -55,7 +55,7 @@ function onDeviceReady(){
 			var id=$("#txtIDServ").val();
 			$.ajax({
 				type:"POST",
-				url:"http://leydimovil.esy.es /ConsultaID.php",
+				url:"http://leydimovil.esy.es/ConsultaID.php",
 				data:"ID="+id,
 				success:function (datos) {
 					var reg=$.parseJSON(datos);
