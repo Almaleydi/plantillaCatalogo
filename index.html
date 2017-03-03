@@ -14,7 +14,8 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady(){
 		/*******Evento para registrar servicios*********/
-		$("#btnGuardar").tap(function (){	
+		$("#btnGuardar").tap(function (){
+		//alert("Funciona guardar");		
 			var nom=$("#Nombre").val();
 			var dir=$("#Direccion").val();
 			var rfc=$("#RFC").val();
@@ -27,9 +28,10 @@ function onDeviceReady(){
 			$.ajax({
 				type:"POST",
 				url:"http://leydimovil.esy.es/Guardar.php",
+				//url:"Guardar.php",
 				data:"Nom="+nom+"&Dir="+dir+"&Rfc="+rfc+"&Tel="+tel+"&Clasif="+clasif+"&Foto="+foto+"&Lat="+lat+"&Long="+longit,
 				success:function (datos) {
-					alert("Datos guardados correctamente: "+datos);
+					alert("Datos guardados correctamente:");
 				}
 			});
 		});
@@ -39,6 +41,7 @@ function onDeviceReady(){
 			$.ajax({
 				type:"POST",
 				url:"http://leydimovil.esy.es/Consulta.php",
+				//url:"Consulta.php",
 				data:"",
 				success:function (datos) {
 					var reg=$.parseJSON(datos);
@@ -56,6 +59,7 @@ function onDeviceReady(){
 			$.ajax({
 				type:"POST",
 				url:"http://leydimovil.esy.es/ConsultaID.php",
+				//url:"ConsultaID.php",
 				data:"ID="+id,
 				success:function (datos) {
 					var reg=$.parseJSON(datos);
@@ -168,15 +172,15 @@ function onDeviceReady(){
 			<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="tb1">
 				<thead id="datosTodos">
 					<tr>
-						<th data-priority="1">Id</th>
-						<th data-priority="2">Nombre</th>
-						<th data-priority="3">Direción</th>
-						<th data-priority="4">RFC</th>
+						<th data-priority="1">Id:</th>
+						<th data-priority="2">Nombre:</th>
+						<th data-priority="3">Dirección:</th>
+						<th data-priority="4">RFC:</th>
 						<th data-priority="5">Tel:</th>
-						<th data-priority="6">Clasif</th>
+						<th data-priority="6">Clasificacion:</th>
 						<th data-priority="7">Foto</th>
-						<th data-priority="8">Lat</th>
-						<th data-priority="9">Long</th>
+						<th data-priority="8">Lat:</th>
+						<th data-priority="9">Long:</th>
 					</tr>
 				</thead>				
 				<tbody id="datosTodos">
