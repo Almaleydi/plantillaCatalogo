@@ -14,8 +14,7 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady(){
 		/*******Evento para registrar servicios*********/
-		$("#btnGuardar").tap(function (){
-		//alert("Funciona guardar");		
+		$("#btnGuardar").tap(function (){	
 			var nom=$("#Nombre").val();
 			var dir=$("#Direccion").val();
 			var rfc=$("#RFC").val();
@@ -27,46 +26,43 @@ function onDeviceReady(){
 			//alert("Funciona guardar");								
 			$.ajax({
 				type:"POST",
-				url:"http://leydimovil.esy.es/Guardar.php",
-				//url:"Guardar.php",
+				url:"http://www.leydimovil.esy.es/Guardar.php",
 				data:"Nom="+nom+"&Dir="+dir+"&Rfc="+rfc+"&Tel="+tel+"&Clasif="+clasif+"&Foto="+foto+"&Lat="+lat+"&Long="+longit,
 				success:function (datos) {
-					alert("Datos guardados correctamente:");
+					alert("Datos guardados correctamente: ");
 				}
 			});
 		});
 
 		/**********Evento para consulta*************/
 		$("#btnConsServ").tap(function (){
-			alert("Funciona consultar");
+			//alert ("funciona");
 			$.ajax({
 				type:"POST",
-				url:"http://leydimovil.esy.es/Consulta.php",
-				//url:"Consulta.php",
+				url:"http://www.leydimovil.esy.es/Consulta.php",
 				data:"",
 				success:function (datos) {
-					alert("Consultando");
 					var reg=$.parseJSON(datos);
 					var fila=$("#datosTodos");
-						fila.html("");
+					fila.html("");
 					 for(var i in reg){
 					 	fila.append("<tr><td>"+reg[i].Id_servicio+"</td><td>"+reg[i].Nombre_servicio+"</td><td>"+reg[i].Direccion+"</td><td>"+reg[i].RFC+"</td><td>"+reg[i].Telefono+"</td><td>"+reg[i].Clasificacion+"</td><td>"+reg[i].Foto+"</td><td>"+reg[i].Latitud+"</td><td>"+reg[i].Longitud+"</td></tr>");
-					 	//alert("consultado");
 					 }
 					$("#tb1").table("refresh");
 				}
 			});
 		});
-		//Consultar por ID
-		$("#btnConsID").tap(function (){
-			//alert("Funciona consultar por ID");
-			var id=$("#txtIDServ").val();
+
+		/**********Evento para consulta por ID*************/
+		$("#btnConsID").tap(function (){			
+			var id=$("#txtIDserv").val();
+			//alert("Funciona"+id);
 			$.ajax({
 				type:"POST",
-				url:"http://leydimovil.esy.es/ConsultaID.php",
-			   // url:"ConsultaID.php",
+				url:"http://www.leydimovil.esy.es/ConsultaID.php",
 				data:"ID="+id,
 				success:function (datos) {
+					alert(datos);
 					var reg=$.parseJSON(datos);
 					var fila=$("#datosTodos");
 					 for(var i in reg){
@@ -76,7 +72,6 @@ function onDeviceReady(){
 				}
 			});
 		});
-
 		//Modificar
 		$("#btnActualizar").tap(function (){
 			var id=$("#DatModificar").val();
@@ -143,7 +138,6 @@ function onDeviceReady(){
 	</style>
 </head>
 <body>
-	
 	<div data-role="page" id="Principal">
 		<div data-role="header">
 			<p>Menú principal</p>
@@ -152,20 +146,19 @@ function onDeviceReady(){
 			<ul data-role="listview">
 				<li><a href="#Registrar">Registrar servicios</a></li>	
 				<li><a href="#Consultar">Consultar servicios</a></li>
-				<li><a href="#Consultar">Actualizar servicios</a></li>
-				<li><a href="#Consultar">Eliminar servicios</a></li>
+				<li><a href="#Actualizar">Actualizar servicios</a></li>
+				<li><a href="#Eliminar">Eliminar servicios</a></li>
 			</ul>	
 		</div>
 		<div data-role="footer">
 			<p>pie de aplicación</p>
 		</div>
 	</div>
-	
 	<div data-role="page" id="Registrar">
 		<div data-role="header">
 			<p>Registrar servicios</p>
 		</div>	
-		<div data-role="content"  id="DatModificar">
+		<div data-role="content">
 			<input type="text" id="Nombre" placeholder="Escribe el nombres del servicio">
 			<input type="text" id="Direccion" placeholder="Escribe la dirección">
 			<input type="text" id="RFC" placeholder="Escribe el RFC">
@@ -186,8 +179,41 @@ function onDeviceReady(){
 			<p><a href="#Principal" class="ui-btn ui-icon-home ui-btn-icon-left">Regresar</a></p>
 		</div>
 	</div>
-	
 	<div data-role="page" id="Consultar">
+		<div data-role="header">
+			<p>Consultar servicios</p>
+		</div>	
+		<div data-role="content">
+			<input type="text" id="txtIDserv" placeholder="Escribe el ID de la busqueda">
+			<input type="button" id="btnConsID" value="Consultar Servicio">
+			<input type="button" id="btnConsServ" value="Consultar Todos los Servicios">
+			<div>
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="tb1">
+				<thead >
+					<tr>
+						<th data-priority="1">Id</th>
+						<th data-priority="2">Nombre</th>
+						<th data-priority="3">Direción</th>
+						<th data-priority="4">RFC</th>
+						<th data-priority="5">Tel:</th>
+						<th data-priority="6">Clasif</th>
+						<th data-priority="7">Foto</th>
+						<th data-priority="8">Lat</th>
+						<th data-priority="9">Long</th>
+					</tr>
+				</thead>				
+				<tbody id="datosTodos">
+				</tbody>
+			</table>
+			</div>
+		</div>
+		<div data-role="footer">
+			<p><a href="#Principal" class="ui-btn ui-icon-home ui-btn-icon-left">Regresar</a></p>
+		</div>
+	</div>
+
+ 
+	<!--	<div data-role="page" id="Consultar">
 		<div data-role="header">
 			<p>Servicios</p>
 		</div>	
@@ -222,6 +248,7 @@ function onDeviceReady(){
 		</div>
 	</div>
 
+	!-->
 
 </body>
 </html>
